@@ -1,9 +1,46 @@
+html{
+    font-family:  "Noto Serif", serif;
+    font-size: 62.5%;
+}
+
 .bigRectangle{
-    height: 600 px;
-    width: 33%;
+    height: 600px;
+    width: 400px;
+    border-radius: 30px;
     background-color: black;
     margin-left: 10%;
     margin-bottom: 10%;
+    padding-top: 1px;
+}
+h1{
+    font-size: 5rem;
+}
+.smallRectangle{
+    height: 80px;
+    width: 80%;
+    background-color: white;
+    margin: 10% 10% 10% 10%;
+    padding-top:10px;
+}
+.input{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 150px;
+    padding: 10px 30px;
 
 }
-
+.circle{
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    margin: 7.5px;
+    border-radius: 100%;
+    font-size: 4rem;
+    padding: 5%;
+    line-height: .8;
+}
+#point.circle{
+    /* padding-left: 5px; */
+}
