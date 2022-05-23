@@ -14,15 +14,109 @@
 
 
 // constants
-let one =  document.querySelector('.number').addEventListener('click',addValue1)
+// let one =  document.querySelector('.number').addEventListener('click',addValue1)
 
-let two = document.querySelector('#two').addEventListener('click',addValue2)
+// let two = document.querySelector('#two').addEventListener('click',addValue2)
 
-function addValue1(){
-    document.querySelector("h1").innerText += 1
+
+const numbers = document.getElementsByClassName("number")
+// const display = document.getElementById("display")
+
+const buttons = document.querySelectorAll('.operator')
+const equal =  document.querySelector('#equals')
+
+// equal.addEventListener('dblclick', equals)
+equal.addEventListener("click", equals)
+
+
+
+for(let i = 0; i < buttons.length; i++){
+    buttons[i].addEventListener('click', calculate)
 }
+
+
+
+for (let i = 0; i < numbers.length; i++) {
+    numbers[i].addEventListener('click', addValue)
+}
+
+let a = ""
+let b = a
+let subtotal = 0
+let first = true
+function addValue() {
+    if(first === true){
+        a = ""
+        document.querySelector('h1').innerText = ""
+        first = false
+    }
+    // console.log(document.querySelector('h1').innerText)
+    document.querySelector('h1').innerText += this.innerText
+    // console.log(this.innerText)
+    a += this.innerText
+    b += this.innerText
+    console.log(a)
+    console.log(b)
+    
+}
+
+function calculate(){
+    first = true
+    subtotal = Number(a)
+    console.log("test", a, this.innerText)
+    if(this.innerText === "+"){
+        subtotal += subtotal
+
+        console.log('winning')
+        document.querySelector('h1').innerText =  subtotal + "plus" + a + "=" + ( (Number(a)) + (Number(a)))
+
+    }else if(this.innerText === "-"){
+        subtotal -= subtotal
+        document.querySelector('h1').innerText = 'minus'
+    }else if(this.innerText === "x"){
+        subtotal *= subtotal
+        document.querySelector('h1').innerText = 'times'
+    }else if(this.innerText === "/"){
+        subtotal /= subtotal
+        document.querySelector('h1').innerText = 'dividing'
+    }
+    console.log('Bigtest', subtotal, a)
+// // if !=,or + or - or * or /  dont run code
    
-console.log(one)
+//     // generate b until either an operand or equals is pressed. If operand, then subtotal, otherwise equals
+    // document.querySelector('h1').innerText = Number(x) + Number(y)
+}
+
+// function divide(a,b){
+//     document.querySelector('h1').innerText = Number(x) / Number(b)
+
+// }
+
+function equals(){
+    if(document.querySelector('h1').innerText !== (subtotal + "end") ){
+    
+    document.querySelector('h1').innerText = subtotal + "end"
+    console.log(b + "equals")
+    
+    }else{
+        a = ""
+        b = ""
+        subtotal = 0
+        document.querySelector('h1').innerText = "zero"
+    }
+}
+
+
+    
+    
+
+
+// function addValue1(){
+//     document.querySelector("h1").innerText += 1
+// }
+
+// function addValue2
+// console.log(one)
 
 
 
