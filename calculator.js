@@ -20,35 +20,38 @@
 
 
 const numbers = document.getElementsByClassName("number")
-// const display = document.getElementById("display")
-
-const buttons = document.querySelectorAll('.operator')
-const equal =  document.querySelector('#equals')
-
-// equal.addEventListener('dblclick', equals)
-equal.addEventListener("click", equals)
-
-
-
-for(let i = 0; i < buttons.length; i++){
-    buttons[i].addEventListener('click', calculate)
-}
-
-
-
 for (let i = 0; i < numbers.length; i++) {
     numbers[i].addEventListener('click', addValue)
 }
 
+const buttons = document.querySelectorAll('.operator')
+for(let i = 0; i < buttons.length; i++){
+    buttons[i].addEventListener('click', calculate)
+}
+
+const equal =  document.querySelector('#equals')
+// equal.addEventListener('dblclick', equals)
+equal.addEventListener("click", equals)
+
+const point = document.querySelector('#point')
+point.addEventListener('click', decPoint)
+
+
+
 let a = ""
 let b = a
-let subtotal = 0
-let first = true
+let X
+let subtotal = X
+let firstNumber = true
 function addValue() {
-    if(first === true){
+    if(firstNumber === true){
         a = ""
         document.querySelector('h1').innerText = ""
-        first = false
+        firstNumber = false
+    }//if there is a decimal point, "." = null
+    
+    if(a.includes(".")){
+        decPoint()
     }
     // console.log(document.querySelector('h1').innerText)
     document.querySelector('h1').innerText += this.innerText
@@ -57,51 +60,81 @@ function addValue() {
     b += this.innerText
     console.log(a)
     console.log(b)
-    
 }
 
-function calculate(){
-    first = true
-    subtotal = Number(a)
-    console.log("test", a, this.innerText)
-    if(this.innerText === "+"){
-        subtotal += subtotal
-
-        console.log('winning')
-        document.querySelector('h1').innerText =  subtotal + "plus" + a + "=" + ( (Number(a)) + (Number(a)))
-
-    }else if(this.innerText === "-"){
-        subtotal -= subtotal
-        document.querySelector('h1').innerText = 'minus'
-    }else if(this.innerText === "x"){
-        subtotal *= subtotal
-        document.querySelector('h1').innerText = 'times'
-    }else if(this.innerText === "/"){
-        subtotal /= subtotal
-        document.querySelector('h1').innerText = 'dividing'
+function decPoint(){
+    // for(let i = 0;i< 1; i++){
+    //     console.log(i)
+    //     if(i > 0){
+    //         point.addEventListener('click', addValue).disabled = true
+    //         alert("Too many decimals!!!!!!")
+    //     }
+    // }
+    if(a.includes(".")){
+        return
+    }else{
+        a += "."
+        document.querySelector('h1').innerText += "."
     }
-    console.log('Bigtest', subtotal, a)
-// // if !=,or + or - or * or /  dont run code
-   
-//     // generate b until either an operand or equals is pressed. If operand, then subtotal, otherwise equals
-    // document.querySelector('h1').innerText = Number(x) + Number(y)
 }
+let sum
+function calculate(){
 
+    firstNumber = true //should go at the end?
+    
+    if(subtotal === X){
+        subtotal = Number(a)
+        console.log("sub=", subtotal)
+    }else{
+        currentValue =  Number(a)
+    console.log("test", a, this.innerText, "currentVale=", currentValue, "subtot=", subtotal)
+    if(this.innerText === "+"){
+        let sum
+        sum = subtotal + currentValue
+        console.log(sum, 'winning', subtotal,currentValue)
+        document.querySelector('h1').innerText = sum
+
+    
+        // ok so if "+"" is clicked, the value,"a" should only get ready to be added to. then the next value of a should be added to the first value of a and then stored in the running memory until equals is clicked, or another operator. so, no matter what operator is clicked the first time, we want the value to be += added to zero held in the subtotal. but after the first time, and there is a running total going, we want the operand click to perform whatever operation on the subtotal(necessary to take into consideration because of the zero and multiplication and division). so maybe first is to  if first time, because we still want to be able to multiply by zero and have zero be the result. so 'Enter a value' may be the correct way to approach this problem, like you could enter zero if you wanted to .. 
+    }else if(this.innerText === "-"){
+        let difference =
+        subtotal -= currentValue
+        document.querySelector('h1').innerText = difference
+        total = difference
+    }else if(this.innerText === "x"){
+        let product = 
+        subtotal *= currentValue
+        document.querySelector('h1').innerText = product
+        total = product
+    }else if(this.innerText === "/"){
+        let quotient =
+        subtotal /= currentValue
+        document.querySelector('h1').innerText = quotient
+        total = quotient
+        
+    }
+    console.log('Bigtest',"total=", total, "sub=",subtotal, a, "Current=", currentValue)
+
+}
+}
 // function divide(a,b){
 //     document.querySelector('h1').innerText = Number(x) / Number(b)
 
 // }
 
 function equals(){
-    if(document.querySelector('h1').innerText !== (subtotal + "end") ){
     
-    document.querySelector('h1').innerText = subtotal + "end"
+    if(document.querySelector('h1').innerText != (subtotal) ){
+    
+    document.querySelector('h1').innerText = sum
     console.log(b + "equals")
     
     }else{
+        first = true
         a = ""
         b = ""
         subtotal = 0
+        currentValue = 0
         document.querySelector('h1').innerText = "zero"
     }
 }
